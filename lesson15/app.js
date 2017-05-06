@@ -4,33 +4,34 @@
 angular.module('CounterApp', [])
 .controller('CounterController', CounterController);
 
-CounterController.$inject = ['$scope'];
-function CounterController ($scope) {
-  $scope.onceCounter = 0;
-  $scope.zCounter = 0;
-
-  $scope.showNumberOfWatchers = function () {
-    console.log('# of watches ',  $scope.$$watchersCount);
-
-  };
-
-  $scope.countOnce = function () {
-    $scope.onceCounter = 1;
-  };
+CounterController.$inject = ['$scope', '$timeout'];
+function CounterController ($scope, $timeout) {
+  $scope.counter = 0;
 
   $scope.upCounter = function () {
-    $scope.zCounter++;
+    $timeout (function () {
+      $scope.counter++;
+      console.log("Counter Incremented");;
+    }, 2000);
   };
 
-  $scope.$watch('onceCounter', function (newValue, oldValue) {
-    console.log('old value: ', oldValue);
-    console.log('new value: ', newValue);
-  } );
+  // $scope.upCounter = function () {
+  //   setTimeout(function () {
+  //     $scope.$apply(function () {
+  //       $scope.counter++;
+  //       console.log("Counter Incremented");
+  //     })
+  //   }, 2000);
+  // };
 
-  $scope.$watch('zCounter', function (newValue, oldValue) {
-    console.log('old value: ', oldValue);
-    console.log('new value: ', newValue);
-  } );
+  // $scope.upCounter = function () {
+  //   setTimeout(function () {
+  //     $scope.counter++;
+  //     console.log("Counter Incremented");
+  //     $scope.$digest();
+  //   }, 2000);
+  // };
+
 
 }
 
